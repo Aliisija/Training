@@ -1,4 +1,6 @@
-package com.accenture.op.task_domain.domain;
+package com.accenture.op.task_domain.entities;
+
+import com.accenture.op.task_domain.entities.Object;
 
 import javax.persistence.Entity;
 import java.util.Date;

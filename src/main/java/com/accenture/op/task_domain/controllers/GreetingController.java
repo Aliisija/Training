@@ -1,6 +1,6 @@
 package com.accenture.op.task_domain.controllers;
 
-import com.accenture.op.task_domain.services.GreetingPage;
+import com.accenture.op.task_domain.services.springdatajpa.GreetingJpaPage;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,8 +13,8 @@ public class GreetingController {
         private final AtomicLong counter = new AtomicLong();
 
         @RequestMapping({"/greeting","","/"})
-        public GreetingPage greeting(@RequestParam(value="name", defaultValue="World") String name) {
-            return new GreetingPage(counter.incrementAndGet(),
+        public GreetingJpaPage greeting(@RequestParam(value="name", defaultValue="World") String name) {
+            return new GreetingJpaPage(counter.incrementAndGet(),
                     String.format(template, name));
         }
 

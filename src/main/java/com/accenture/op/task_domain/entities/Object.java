@@ -1,4 +1,4 @@
-package com.accenture.op.task_domain.domain;
+package com.accenture.op.task_domain.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,11 +1,11 @@
-package com.accenture.op.task_domain.services;
+package com.accenture.op.task_domain.services.springdatajpa;
 
-public class GreetingPage {
+public class GreetingJpaPage {
 
     private final long id;
     private final String helloString;
 
-    public GreetingPage(long id, String content) {
+    public GreetingJpaPage(long id, String content) {
         this.id = id;
         this.helloString = content;
     }
