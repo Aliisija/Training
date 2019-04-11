@@ -1,19 +1,18 @@
-package com.accenture.op.task_domain.entities;
+package com.accenture.op.task_domain.entities.entityDto;
 
 
+import lombok.Data;
 
-import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
-public class Project extends Object {
+@Data
+public class ProjectDTO extends ObjectDTO {
 
     private String title;
     private String body;
     private Date dateCreated;
     private boolean critical;
     private Long timeRemaining;
-
 
     public String getTitle() {
         return title;

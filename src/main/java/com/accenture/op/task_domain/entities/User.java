@@ -1,7 +1,5 @@
 package com.accenture.op.task_domain.entities;
 
-import com.accenture.op.task_domain.entities.Object;
-
 import javax.persistence.Entity;
 
 @Entity

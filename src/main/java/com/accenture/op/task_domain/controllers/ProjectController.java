@@ -1,7 +1,7 @@
 package com.accenture.op.task_domain.controllers;
 
 import com.accenture.op.task_domain.entities.Project;
-import com.accenture.op.task_domain.services.springdatajpa.ProjectCrudService;
+import com.accenture.op.task_domain.services.springdatajpa.ProjectServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -10,8 +10,8 @@ import java.util.List;
 @RestController
 public class ProjectController {
 
-    private ProjectCrudService projectService;
-    public ProjectController(ProjectCrudService projectService){
+    private ProjectServiceImpl projectService;
+    public ProjectController(ProjectServiceImpl projectService){
         this.projectService = projectService;
     }
 
