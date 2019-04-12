@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.toIntExact;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
@@ -26,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .findAll()
                 .stream()
                 .map(projects -> {ProjectDTO projectDTO = projectMapper.projectToProjectDTO(projects);
-                    projectDTO.setProjectUrl("/api/project/" +projects.getId());
+                    //projectDTO.setProjectUrl("/api/project/" +projects.getId());
                     return projectDTO;
                 }).collect(Collectors.toList());
     }
@@ -40,11 +42,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project save(Project projectDTO) {
-        projectRepository.findAll().add(projectDTO);
-        return projectRepository.save(projectDTO);
+    public Project save(Project project) {
+        projectRepository.findAll().add(project);
+        return projectRepository.save(project);
+
+    }
+    //TODO, make this work
+    @Override
+    public Project updateProject(Long id, Project project) {
 
 
-
+        projectRepository.findAll().set(toIntExact(id), project);
+        return projectRepository.save(project);
     }
 }

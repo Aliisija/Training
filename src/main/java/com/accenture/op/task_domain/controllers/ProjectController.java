@@ -4,6 +4,7 @@ import com.accenture.op.task_domain.entities.Project;
 import com.accenture.op.task_domain.entities.entityDto.ProjectDTO;
 import com.accenture.op.task_domain.services.ProjectService;
 import com.accenture.op.task_domain.services.mapper.ProjectMapper;
+import javafx.scene.shape.Path;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -30,15 +31,13 @@ public class ProjectController {
     public List<ProjectDTO> project(){
         return projectService.getAllProjects();
     }
-    //TODO, implement properly
-    @GetMapping("projects/id2")
-    public ProjectDTO getByID(Long id){
-        id = 2L;
-        return projectService.getProjectById(id);
+
+    @GetMapping(value="project/{id}")
+    public ProjectDTO getByID(@PathVariable("id")Long id){
+        return projectMapper.projectToProjectDTO(projectService.getProjectById(id));
     }
 
 
-    //TODO, add the ProjectDTO entity to the actual list.
     @PostMapping("/projectSubmit")
     public ProjectDTO submitProject(@RequestBody ProjectDTO projectDTO) {
         if(projectDTO.getDateCreated()==null){
@@ -48,6 +47,15 @@ public class ProjectController {
         Project projectCreated = projectService.save(project);
         return projectMapper.projectToProjectDTO(projectCreated);
 
+    }
+    //TODO, actually make this work...
+    @PostMapping(value="project/update/{id}")
+    public  ProjectDTO updateProject(@PathVariable("id")Long id,@RequestBody ProjectDTO projectDTO){
+
+
+        Project project = projectMapper.projectDTOToProject(projectDTO);
+        Project projectUpdated = projectService.updateProject(project.getId(),project);
+        return projectMapper.projectToProjectDTO(projectUpdated);
     }
 
 }

@@ -8,6 +8,7 @@ public class TaskDomainApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TaskDomainApplication.class, args);
+
 	}
 
 }

@@ -9,13 +9,5 @@ import java.io.Serializable;
 
 @Data
 public class ProjectDTO extends Project implements Serializable {
-    public String getProjectUrl() {
-        return projectUrl;
-    }
 
-    public void setProjectUrl(String projectUrl) {
-        this.projectUrl = projectUrl;
-    }
-
-    private String projectUrl;
 }

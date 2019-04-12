@@ -9,4 +9,5 @@ public interface ProjectService {
     List<ProjectDTO>getAllProjects();
     ProjectDTO getProjectById(Long id);
     Project save(Project project);
+    Project updateProject(Long id, Project project);
 }
