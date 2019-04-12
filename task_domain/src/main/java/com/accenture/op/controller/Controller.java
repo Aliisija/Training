@@ -5,8 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "hello";
+    @GetMapping("/index")
+    public String index(){
+        return "index";
+    }
+
+    @GetMapping("/table")
+    public String table(){
+        return "table";
     }
 }

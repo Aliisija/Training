@@ -1,37 +1,46 @@
 package com.accenture.op.domain;
+import java.util.Date;
 
 public class TaskDto {
 
-    private String dueDate;
-    private String status;
+    private String taskName;
+    private Date startDate;
+    private Date endDate;
     private String priority;
-    private String assignee;
     private String notes;
 
     public TaskDto() {}
 
-    public TaskDto(String dueDate, String status, String priority, String assignee, String notes) {
-        this.dueDate = dueDate;
-        this.status = status;
+    public TaskDto(String taskName, Date startDate, Date endDate, String priority, String notes) {
+        this.taskName = taskName;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.priority = priority;
-        this.assignee = assignee;
         this.notes = notes;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public String getStatus() {
-        return status;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getPriority() {
@@ -40,14 +49,6 @@ public class TaskDto {
 
     public void setPriority(String priority) {
         this.priority = priority;
-    }
-
-    public String getAssignee() {
-        return assignee;
-    }
-
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
     }
 
     public String getNotes() {

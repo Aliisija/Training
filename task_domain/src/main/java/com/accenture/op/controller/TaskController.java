@@ -1,14 +1,8 @@
 package com.accenture.op.controller;
 
-import com.accenture.op.domain.Task;
 import com.accenture.op.domain.TaskDto;
-import com.accenture.op.repository.TaskRepository;
 import com.accenture.op.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,16 +20,19 @@ public class TaskController {
         return taskService.getAllTasks();
     }
 
-//    @RequestMapping(value = "/")
-//    public String hello() {
-//        taskRepository.save(new Task("due date", "status"));
-//        return "Test";
-//
-//    }
+    @PostMapping(value = "/savetask")
+    public void saveNewTask(@RequestBody TaskDto dto) {
+        taskService.saveNewTask(dto);
+    }
 
-//    @GetMapping("/tasks")
-//    public String getAll() {
-//        return "Returning all tasks";
-//    }
+    @PostMapping(value = "/updateTask")
+    public void updateTask(@RequestBody TaskDto dto, Long id){
+        taskService.updateTask(dto,id);
+    }
+
+    @DeleteMapping(value = "/deletetask")
+    public void deleteTaskById(Long id){
+        taskService.deleteTaskById(id);
+    }
 
 }

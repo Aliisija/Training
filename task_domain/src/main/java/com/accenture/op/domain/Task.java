@@ -1,39 +1,34 @@
 package com.accenture.op.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
+import java.util.Date;
 
-@Entity
+@Entity(name = "TASK")
 public class Task {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
-    @Column
-    private String dueDate;
-    @Column
-    private String status;
-    @Column
+    @Column(name = "TASKNAME")
+    private String taskName;
+    @Column(name = "STARTDATE")
+    @Temporal(value=TemporalType.TIMESTAMP)
+    private Date startDate;
+    @Column(name = "ENDDATE")
+    @Temporal(value=TemporalType.TIMESTAMP)
+    private Date endDate;
+    @Column(name = "PRIORITY")
     private String priority;
-    @Column
-    private String assignee;
-    @Column
+    @Column(name = "NOTES")
     private String notes;
 
     public Task() {}
 
-    public Task(String dueDate, String status) {
-        this.dueDate = dueDate;
-        this.status = status;
-    }
-
-    public Task(String dueDate, String status, String priority, String assignee, String notes) {
-        this.dueDate = dueDate;
-        this.status = status;
+    public Task(String taskName, Date startDate, Date endDate, String priority, String notes) {
+        this.taskName = taskName;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.priority = priority;
-        this.assignee = assignee;
         this.notes = notes;
     }
 
@@ -41,18 +36,28 @@ public class Task {
         return id;
     }
 
-    public String getDueDate() {
-        return dueDate;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public String getStatus() { return status; }
+    public Date getStartDate() {
+        return startDate;
+    }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public String getPriority() {
@@ -61,14 +66,6 @@ public class Task {
 
     public void setPriority(String priority) {
         this.priority = priority;
-    }
-
-    public String getAssignee() {
-        return assignee;
-    }
-
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
     }
 
     public String getNotes() {

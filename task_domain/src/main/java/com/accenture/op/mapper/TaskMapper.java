@@ -30,25 +30,31 @@ public class TaskMapper {
         return dtos;
     }
 
-    //private jo pagaidaam neizmantojam aarpus mapper klases, kad izmantosim - paarmainiit uz public.
-    private Task dtoToEntity(final TaskDto taskDto) {
+    public Task dtoToEntity(final TaskDto taskDto) {
         Task task = new Task();
-        task.setAssignee(taskDto.getAssignee());
-        task.setDueDate(taskDto.getDueDate());
+        task.setTaskName(taskDto.getTaskName());
+        task.setStartDate(taskDto.getStartDate());
+        task.setEndDate(taskDto.getEndDate());
         task.setNotes(taskDto.getNotes());
         task.setPriority(taskDto.getPriority());
-        task.setStatus(taskDto.getStatus());
         return task;
     }
 
-    private TaskDto entityToDto(final Task task) {
+    public TaskDto entityToDto(final Task task) {
         TaskDto taskDto = new TaskDto();
-        taskDto.setAssignee(task.getAssignee());
-        taskDto.setDueDate(task.getDueDate());
+        taskDto.setTaskName(task.getTaskName());
+        taskDto.setStartDate(task.getStartDate());
+        taskDto.setEndDate(task.getEndDate());
         taskDto.setNotes(task.getNotes());
         taskDto.setPriority(task.getPriority());
-        taskDto.setStatus(task.getStatus());
         return taskDto;
     }
 
+    public void updateTask(TaskDto taskDto, Task taskToUpdate){
+        taskToUpdate.setTaskName(taskDto.getTaskName());
+        taskToUpdate.setStartDate(taskDto.getStartDate());
+        taskToUpdate.setEndDate(taskDto.getEndDate());
+        taskToUpdate.setNotes(taskDto.getNotes());
+        taskToUpdate.setPriority(taskDto.getPriority());
+    }
 }
