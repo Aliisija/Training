@@ -32,7 +32,7 @@ public class ProjectController {
         return projectService.getAllProjects();
     }
 
-    @GetMapping(value="project/{id}")
+    @GetMapping(value="/project/{id}")
     public ProjectDTO getByID(@PathVariable("id")Long id){
         return projectMapper.projectToProjectDTO(projectService.getProjectById(id));
     }
@@ -49,13 +49,19 @@ public class ProjectController {
 
     }
     //TODO, actually make this work...
-    @PostMapping(value="project/update/{id}")
+    @PatchMapping(value="/project/update/{id}")
     public  ProjectDTO updateProject(@PathVariable("id")Long id,@RequestBody ProjectDTO projectDTO){
 
 
         Project project = projectMapper.projectDTOToProject(projectDTO);
         Project projectUpdated = projectService.updateProject(project.getId(),project);
         return projectMapper.projectToProjectDTO(projectUpdated);
+    }
+    //TODO, make a delete mapping.
+    @DeleteMapping(value="/project/delete/{id}")
+    public String deleteProject(@PathVariable("id")Long id){
+        projectService.deleteById(id);
+        return "Project deleted";
     }
 
 }

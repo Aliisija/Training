@@ -47,6 +47,13 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.save(project);
 
     }
+
+    @Override
+    public String deleteById(Long id) {
+        projectRepository.deleteById(id);
+        return "Project "+id+"deleted sucesfully";
+    }
+
     //TODO, make this work
     @Override
     public Project updateProject(Long id, Project project) {
