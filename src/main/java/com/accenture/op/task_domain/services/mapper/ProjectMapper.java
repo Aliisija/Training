@@ -6,7 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface ProjectMapper extends ObjectMapper {
+public interface ProjectMapper {
     ProjectMapper INSTANCE = Mappers.getMapper(ProjectMapper.class);
     ProjectDTO projectToProjectDTO(Project project);
+    Project projectDTOToProject(ProjectDTO projectDTO);
 }

@@ -1,7 +1,9 @@
 package com.accenture.op.task_domain.controllers;
 
 import com.accenture.op.task_domain.entities.Project;
-import com.accenture.op.task_domain.services.springdatajpa.ProjectServiceImpl;
+import com.accenture.op.task_domain.entities.entityDto.ProjectDTO;
+import com.accenture.op.task_domain.services.ProjectService;
+import com.accenture.op.task_domain.services.mapper.ProjectMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -10,25 +12,41 @@ import java.util.List;
 @RestController
 public class ProjectController {
 
-    private ProjectServiceImpl projectService;
-    public ProjectController(ProjectServiceImpl projectService){
+    private ProjectMapper projectMapper;
+    private ProjectService projectService;
+
+    public ProjectController(ProjectMapper projectMapper, ProjectService projectService) {
+        this.projectMapper = projectMapper;
         this.projectService = projectService;
     }
+
 
     @RequestMapping("/index")
     public String projects(){
         return "project index";
     }
-    @GetMapping("/projects")
-    public List<Project> project(){
-        return projectService.findAll();
+
+   @GetMapping("/projects")
+    public List<ProjectDTO> project(){
+        return projectService.getAllProjects();
     }
+    //TODO, implement properly
+    @GetMapping("projects/id2")
+    public ProjectDTO getByID(Long id){
+        id = 2L;
+        return projectService.getProjectById(id);
+    }
+
+
+    //TODO, add the ProjectDTO entity to the actual list.
     @PostMapping("/projectSubmit")
-    public void submitProject(@RequestBody Project project) {
-        if(project.getDateCreated()==null){
-            project.setDateCreated(new Date());
+    public ProjectDTO submitProject(@RequestBody ProjectDTO projectDTO) {
+        if(projectDTO.getDateCreated()==null){
+            projectDTO.setDateCreated(new Date());
         }
-        projectService.save(project);
+        Project project = projectMapper.projectDTOToProject(projectDTO);
+        Project projectCreated = projectService.save(project);
+        return projectMapper.projectToProjectDTO(projectCreated);
 
     }
 

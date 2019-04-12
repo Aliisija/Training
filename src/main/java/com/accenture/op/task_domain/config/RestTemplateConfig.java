@@ -1,5 +1,7 @@
 package com.accenture.op.task_domain.config;
 
+import com.accenture.op.task_domain.services.mapper.ProjectMapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,4 +13,9 @@ public class RestTemplateConfig {
     public RestTemplate restTemplate(RestTemplateBuilder builder){
         return builder.build();
     }
+//    @Bean
+//    @Qualifier("asdaw")
+//    public ProjectMapper asdad(){
+//        return
+//    }
 }

@@ -2,12 +2,21 @@ package com.accenture.op.task_domain.entities;
 
 
 
-import javax.persistence.Entity;
+
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-public class Project extends Object {
 
+
+@Data
+@Entity
+
+public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String title;
     private String body;
     private Date dateCreated;
@@ -15,6 +24,13 @@ public class Project extends Object {
     private Long timeRemaining;
 
 
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getTitle() {
         return title;
     }
