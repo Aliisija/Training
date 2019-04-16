@@ -4,7 +4,6 @@ import com.accenture.op.task_domain.entities.Project;
 import com.accenture.op.task_domain.entities.entityDto.ProjectDTO;
 import com.accenture.op.task_domain.services.ProjectService;
 import com.accenture.op.task_domain.services.mapper.ProjectMapper;
-import javafx.scene.shape.Path;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -21,11 +20,11 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-
-    @RequestMapping("/index")
-    public String projects(){
-        return "project index";
-    }
+//
+//    @RequestMapping("/index")
+//    public String projects(){
+//        return "project index";
+//    }
 
    @GetMapping("/projects")
     public List<ProjectDTO> project(){

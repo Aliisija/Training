@@ -2,6 +2,7 @@ package com.accenture.op.task_domain.services.mapper;
 
 import com.accenture.op.task_domain.entities.Project;
 import com.accenture.op.task_domain.entities.entityDto.ProjectDTO;
+import javafx.scene.layout.BackgroundImage;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +17,7 @@ public class ProjectMapperTest {
             Project project = new Project();
             project.setId(3L);
             project.setCritical(true);
-            project.setTimeRemaining(1L);
+
 
 
             ProjectDTO projectDTO = objectMapper.projectToProjectDTO(project);

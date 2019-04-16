@@ -26,18 +26,17 @@ public class Bootstrap implements CommandLineRunner {
     }
     private void loadData() {
         Project project = new Project();
-        project.setId(1L);
-        project.setTimeRemaining(2L);
+
+        project.setTimeRemaining(new Date());
         project.setCritical(true);
         project.setTitle("First Loaded value");
         project.setBody("First Loaded body");
         project.setDateCreated(new Date());
-
         projectService.save(project);
 
         Project project2 = new Project();
-        project2.setId(2L);
-        project2.setTimeRemaining(10L);
+
+        project2.setTimeRemaining(new Date());
         project2.setCritical(true);
         project2.setTitle("Second Loaded value");
         project2.setBody("Second Loaded body");
@@ -46,8 +45,7 @@ public class Bootstrap implements CommandLineRunner {
         projectService.save(project2);
 
         Project project3 = new Project();
-        project3.setId(3L);
-        project3.setTimeRemaining(10L);
+        project3.setTimeRemaining(new Date());
         project3.setCritical(true);
         project3.setTitle("Third Loaded value");
         project3.setBody("Third Loaded body");
@@ -55,7 +53,7 @@ public class Bootstrap implements CommandLineRunner {
 
         projectService.save(project3);
 
-        projectService.updateProject(1L,project2);
+        //projectService.updateProject(project.getId(),project2);
 
     }
 

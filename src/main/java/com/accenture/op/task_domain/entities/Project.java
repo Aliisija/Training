@@ -21,7 +21,11 @@ public class Project {
     private String body;
     private Date dateCreated;
     private boolean critical;
-    private Long timeRemaining;
+    private Date timeRemaining;
+    private String editUrl;
+    private String deleteUrl;
+    private String doneUrl;
+
 
 
 
@@ -63,11 +67,11 @@ public class Project {
         this.critical = critical;
     }
 
-    public Long getTimeRemaining() {
+    public Date getTimeRemaining() {
         return timeRemaining;
     }
 
-    public void setTimeRemaining(Long timeRemaining) {
+    public void setTimeRemaining(Date timeRemaining) {
         this.timeRemaining = timeRemaining;
     }
 }

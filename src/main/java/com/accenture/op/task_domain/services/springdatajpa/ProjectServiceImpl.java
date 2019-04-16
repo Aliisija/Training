@@ -54,12 +54,13 @@ public class ProjectServiceImpl implements ProjectService {
         return "Project "+id+"deleted sucesfully";
     }
 
-    //TODO, make this work
+    //TODO, make this in a different way, right now it functions just like save.
     @Override
     public Project updateProject(Long id, Project project) {
-
-
-        projectRepository.findAll().set(toIntExact(id), project);
+        //project.setBody(project.getBody()+id.toString());
+        // project.setId(id);
+//        id--;
+//        return projectRepository.findAll().set(toIntExact(id), project);
         return projectRepository.save(project);
     }
 }
