@@ -1,0 +1,18 @@
+#tasks {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tasks td, #tasks th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tasks th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #653239;
+    color: white;
+}

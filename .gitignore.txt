@@ -1,8 +1,0 @@
-.classpath
-**/.~lock*
-*.log
-logs/**
-.project
-.settings/**
-target/**
-wbp-meta/**
