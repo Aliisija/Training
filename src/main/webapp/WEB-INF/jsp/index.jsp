@@ -20,14 +20,14 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Date created</th>
-                <th>Time Remaining</th>
-                <th>Is it Critical</th>
+                <th>Project start date</th>
+                <th>Project end date</th>
+                <th>Is it Urgent</th>
                 <th>Edit</th>
                 <th>Delete</th>
-                <th>Done</th>
+                <th>Hide</th>
         </thead>
-        <tbody id="tbody1">
+        <tbody id="tbody">
 <%--        <tr id="rows">--%>
 <%--            <td id="taskId" type="text"></td>--%>
 <%--            <td id="taskTitle" type="text"></td>--%>
@@ -35,17 +35,57 @@
 <%--            <td id="taskCreated" type="date"></td>--%>
 <%--            <td id="taskTimeRemaining" type="date"></td>--%>
 <%--            <td id="isCritical" type="boolean"></td>--%>
-<%--            <td><a class="btn btn-warning" href="/Task-edit">Edit Task</a></td>--%>
-<%--            <td><a class="btn btn-warning" href="/Task-delete">Delete Task</a></td>--%>
-<%--            <td><a class="btn btn-warning" href="/Task-Done">Task is Done</a></td>--%>
+<%--            <td><button id="editBtn">Edit</button></td>--%>
+<%--            <td><button id="deleteBtn">Delete</button></td>--%>
+<%--            <td><a href="link.html"><button id="doneBtn">Hide</button></a></td>--%>
+
+<%--            <td><a class="btn btn-warning" href="/Task-edit">Edit</a></td>--%>
+<%--            <td><a class="btn btn-warning" href="/Task-delete">Delete</a></td>--%>
+<%--            <td><a class="btn btn-warning" href="/Task-Done">Done</a></td>--%>
 
 <%--        </tr>--%>
 
         </tbody>
     </table>
     <div>
-        <a class="btn btn-default" href="/Task-add">Add a Task</a>
+        <button id="addProject">Add Project</button>
+        <button id="unhideProjects" onClick="unhideAllRows()">Unhide All</button>
+    </div>
+    <div id="formSub">
+        <form>
+            Title of the project:<br>
+            <input id="projectNameSubm" type="text"><br>
+            Project Description<br>
+            <textarea type="text" id="textSubm"></textarea><br>
+            Project start date:<br>
+            <input id="startDateSubm" type="date"><br>
+            Project end date:<br>
+            <input id="endDateSubm" type="date"><br>
+            Is the project Urgent:<br>
+            <input id="criticalSubm" type="checkbox">
+            <input id="submitSubm" class="button" type="button" value="Submit" onClick="getSubmitData()">
+            <input id="submitSubmHide" class="button" type="button" value="Close" onClick="hideFormSubmit()">
 
+        </form>
+    </div>
+    <div id="formEdit">
+        <form id="formEditIdGetter">
+            ID of the Project:<br>
+            <input id="projectIdEdit" type="number" value="1" readonly="readonly"><br>
+            Title of the project:<br>
+            <input id="projectNameEdit" type="text"><br>
+            Project Description<br>
+            <textarea type="text" id="textEdit"></textarea><br>
+            Project start date:<br>
+            <input id="startDateEdit" type="date"><br>
+            Project end date:<br>
+            <input id="endDateEdit" type="date"><br>
+            Is the project Urgent:<br>
+            <input id="criticalEdit" type="checkbox">
+            <input id="submitEdit" class="button" type="button" value="Submit" onClick="getEditData()">
+            <input id="submitEditHide" class="button" type="button" value="Close" onClick="hideFormEdit()">
+
+        </form>
     </div>
 
 </div>
