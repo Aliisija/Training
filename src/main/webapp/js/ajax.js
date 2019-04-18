@@ -82,44 +82,46 @@ function projectHide() {
 function unhideAllRows() {
 loadData();
 
-    // $('.projectRow').style.display='block';
-    /*var res = document.getElementsByClassName('projectRow');
-    var count = 0;
-    for (i in res) {
-        var theId=res.item(i).id;
-        if (res.length > count) {
-            count++;
-            document.getElementsByClassName('projectRow').style.display = 'table-row';
-        }
-
-    }
-     */
 }
 
 function getEditData(res) {
-    var projectID = document.getElementById('projectIdEdit').value;
-    var projectName = document.getElementById('projectNameEdit').value;
-    var projectDesc = document.getElementById('textEdit').value;
-    var projectStart = document.getElementById('startDateEdit').value;
-    var projectEnd = document.getElementById('endDateEdit').value;
-    var projectCritical = $('#criticalEdit').prop('checked');
-    hideFormEdit();
-    prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical, projectID);
+    Boolean(checkForm("Edit"));
+    if (Boolean(checkForm("Edit"))){
+        var projectID = document.getElementById('projectIdEdit').value;
+        var projectName = document.getElementById('projectNameEdit').value;
+        var projectDesc = document.getElementById('textEdit').value;
+        var projectStart = document.getElementById('startDateEdit').value;
+        var projectEnd = document.getElementById('endDateEdit').value;
+        var projectCritical = $('#criticalEdit').prop('checked');
+        hideFormEdit();
+        prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical, projectID);
+
+    }else{
+        alert("Please fill in all values")
+    }
+
 
 }
 
 //TODO Update so that ID gets loaded dynamically.
 function getSubmitData() {
+
+    if (Boolean(checkForm("Subm"))){
+        var projectName = document.getElementById('projectNameSubm').value;
+        var projectDesc = document.getElementById('textSubm').value;
+        var projectStart = document.getElementById('startDateSubm').value;
+        var projectEnd = document.getElementById('endDateSubm').value;
+        var projectCritical = $('#criticalSubm').prop('checked');
+        hideFormSubmit();
+        prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical);
+    }else{
+        alert("Please fill in all values")
+    }
+
     // $('#formEditIdGetter').append(
     //     'Project ID '+this.id+':<br><input id="projectNameEdit" type="text"><br>'
     // );
-    var projectName = document.getElementById('projectNameSubm').value;
-    var projectDesc = document.getElementById('textSubm').value;
-    var projectStart = document.getElementById('startDateSubm').value;
-    var projectEnd = document.getElementById('endDateSubm').value;
-    var projectCritical = $('#criticalSubm').prop('checked');
-    hideFormSubmit();
-    prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical);
+
 }
 
 function updateProject(object, ID) {
@@ -175,12 +177,35 @@ function prepareJSON(projectName, projectDesc, projectStart, projectEnd, project
 
 }
 
+function checkForm(suffix) {
+var boolean=true;
+    if (!document.getElementById("projectName"+suffix).value) {
+        boolean=false;
+    }
+    if (!document.getElementById("text"+suffix).value){
+        boolean=false;
+
+    }
+    if (!document.getElementById("startDate"+suffix).value){
+        boolean=false;
+
+    }
+    if (!document.getElementById("endDate"+suffix).value){
+        boolean=false;
+
+    }
+    if (!document.getElementById("text"+suffix).value){
+        boolean=false;
+    }
+    return boolean;
+}
+
 function addRow(object) {
     $('#tbody').append
-    ('<tr class="projectRow" id="row' + object.id + '">' +
+    ('<tr class="projectrow" id="row' + object.id + '">' +
         '<td>' + object.id + '</td>' +
         '<td>' + object.title + '</td>' +
-        '<td>' + object.body + '</td>' +
+        '<td class="descriptionBody">' + object.body + '</td>' +
         '<td>' + formatDate(object.dateCreated) + '</td>' +
         '<td>' + formatDate(object.timeRemaining) + '</td>' +
         '<td>' + criticalToString(object.critical) + '</td>' +
@@ -198,10 +223,10 @@ function updateRow(object, ID) {
     } else {
         ID--;
         $('#tbody').append
-        ('<tr class="projectRow" id="row' + object.id + '">' +
+        ('<tr class="projectrow" id="row' + object.id + '">' +
             '<td>' + object.id + '</td>' +
             '<td>' + object.title + '</td>' +
-            '<td>' + object.body + '</td>' +
+            '<td class="descriptionBody">' + object.body + '</td>' +
             '<td>' + formatDate(object.dateCreated) + '</td>' +
             '<td>' + formatDate(object.timeRemaining) + '</td>' +
             '<td>' + criticalToString(object.critical) + '</td>' +
@@ -321,10 +346,10 @@ function loadData() {
 
     function populateTable(object) {
         $('#tbody').append
-        ('<tr class="projectRow" id="row' + object.id + '">' +
+        ('<tr class="projectrow" id="row' + object.id + '">' +
             '<td>' + object.id + '</td>' +
             '<td>' + object.title + '</td>' +
-            '<td>' + object.body + '</td>' +
+            '<td class="descriptionBody">' + object.body + '</td>' +
             '<td>' + formatDate(object.dateCreated) + '</td>' +
             '<td>' + formatDate(object.timeRemaining) + '</td>' +
             '<td>' + criticalToString(object.critical) + '</td>' +

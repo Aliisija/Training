@@ -1,3 +1,26 @@
 body {
-    background-color:lavender;
+    background-color: #e1dcff;
+
+
 }
+tr.projectrow{
+    border: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 5px;
+}
+.description{
+    height: auto;
+    width: auto;
+}
+.descriptionBody {
+    height: fit-content;
+    border: solid;
+    border-color: gray;
+    width: fit-content;
+}
+.projectRow{
+
+}
+
+
