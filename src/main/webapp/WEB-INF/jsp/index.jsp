@@ -47,7 +47,7 @@
             <input id="endDateSubm" type="date"><br>
             Is the project Urgent:<br>
             <input id="criticalSubm" type="checkbox">
-            <input id="submitSubm" class="button" type="button" value="Submit" onClick="getFormData('Subm')">
+            <input id="submitSubm" class="button" type="button" value="Submit" onClick="validateFormInputs('Subm')">
             <input id="submitSubmHide" class="button" type="button" value="Close" onClick="hideFormSubmit()">
 
         </form>
@@ -66,7 +66,7 @@
             <input id="endDateEdit" type="date" ><br>
             Is the project Urgent:<br>
             <input id="criticalEdit" type="checkbox">
-            <input id="submitEdit" class="button" type="button" value="Submit" onClick="getFormData('Edit')">
+            <input id="submitEdit" class="button" type="button" value="Submit" onClick="validateFormInputs('Edit')">
             <input id="submitEditHide" class="button" type="button" value="Close" onClick="hideFormEdit()">
 
         </form>

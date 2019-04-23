@@ -111,13 +111,7 @@ function getFilledData(suffix) {
     prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical, projectID);
 }
 
-function getFormData(suffix) {
-    if (Boolean(checkFormForEmptyValues(suffix))) {
-        getFilledData(suffix);
-    }else{
-        alert("Please fill in ALL the values")
-    }
-}
+
 
 function updateProject(object, ID) {
     $.ajax({
@@ -176,27 +170,39 @@ function prepareJSON(projectName, projectDesc, projectStart, projectEnd, project
 
 }
 
-function checkFormForEmptyValues(suffix) {
-var boolean=true;
-    if (!document.getElementById("projectName"+suffix).value) {
-        boolean=false;
-    }
-    if (!document.getElementById("text"+suffix).value){
-        boolean=false;
+function validateFormInputs(suffix) {
+    var errorMessage="Invalid values, please make sure to fill out the form properly. ";
+    var isTheInputValid=true;
+    var endDate =document.getElementById("endDate"+suffix).value;
+    var startDate =document.getElementById("startDate"+suffix).value;
+    var projectName =document.getElementById("projectName"+suffix).value;
+    var projectDescription=document.getElementById("text"+suffix).value;
 
+    if (!projectName) {
+        isTheInputValid=false;
+        errorMessage=errorMessage.concat("Project Title can't be empty. ");
     }
-    if (!document.getElementById("startDate"+suffix).value){
-        boolean=false;
-
+    if (!projectDescription){
+        isTheInputValid=false;
+        errorMessage=errorMessage.concat("Project Description can't be empty. ");
     }
-    if (!document.getElementById("endDate"+suffix).value){
-        boolean=false;
-
+    if (!startDate){
+        isTheInputValid=false;
+        errorMessage=errorMessage.concat("Project Start Date can't be empty. ");
     }
-    if (!document.getElementById("text"+suffix).value){
-        boolean=false;
+    if (!endDate){
+        isTheInputValid=false;
+        errorMessage=errorMessage.concat("Project End Date can't be empty. ");
     }
-    return boolean;
+    if (Date.parse(startDate)>Date.parse(endDate)){
+        isTheInputValid=false;
+        errorMessage=errorMessage.concat("Please recheck the project schedule, it ends before it starts. ");
+    }
+    if (isTheInputValid==false){
+        alert(errorMessage);
+    }else{
+        getFilledData(suffix)
+    }
 }
 
 function addRow(object) {
@@ -220,10 +226,6 @@ function updateRow(object, ID) {
     addRow(object);
 }
 
-function setEditTableValues(object) {
-
-}
-
 
 function loadListener(object) {
     document.getElementById('edit' + object.id).addEventListener('click', function () {
@@ -236,7 +238,6 @@ function loadListener(object) {
     document.getElementById('hide' + object.id).addEventListener('click', function () {
         projectHide(object);
     });
-    setEditTableValues(object);
 
 }
 function monthNumberToString(month) {
