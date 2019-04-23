@@ -32,9 +32,7 @@ public class Bootstrap implements CommandLineRunner {
         project.setTitle("First Loaded value");
         project.setBody("First Loaded body");
         project.setDateCreated(new Date());
-        project.setDeleteUrl("/project/delete/1");
-        project.setEditUrl("/project/update/1");
-        project.setDoneUrl("/project/done/1");
+
         projectService.save(project);
 
 
@@ -45,9 +43,7 @@ public class Bootstrap implements CommandLineRunner {
         project2.setTitle("Second Loaded value");
         project2.setBody("Second Loaded body");
         project2.setDateCreated(new Date());
-        project2.setDeleteUrl("/project/delete/2");
-        project2.setEditUrl("/project/update/2");
-        project2.setDoneUrl("/project/done/2");
+
 
         projectService.save(project2);
 
@@ -57,9 +53,7 @@ public class Bootstrap implements CommandLineRunner {
         project3.setTitle("Third Loaded value");
         project3.setBody("Third Loaded body");
         project3.setDateCreated(new Date());
-        project3.setDeleteUrl("/project/delete/3");
-        project3.setEditUrl("/project/update/3");
-        project3.setDoneUrl("/project/done/3");
+
 
 
         projectService.save(project3);

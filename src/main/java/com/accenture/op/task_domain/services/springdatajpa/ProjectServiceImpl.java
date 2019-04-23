@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public String deleteById(Long id) {
         projectRepository.deleteById(id);
-        return "Project "+id+"deleted sucesfully";
+        return "Project "+id+" deleted sucesfully";
     }
 
     //TODO, make this in a different way, right now it functions just like save.

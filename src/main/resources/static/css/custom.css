@@ -4,6 +4,7 @@ body {
 
 }
 tr.projectrow{
+    box-shadow: 1px 1px black;
     border: solid;
     border-color: black;
     border-width: 2px;
@@ -15,12 +16,8 @@ tr.projectrow{
 }
 .descriptionBody {
     height: fit-content;
-    border: solid;
-    border-color: gray;
-    width: fit-content;
-}
-.projectRow{
 
+    width: fit-content;
 }
 
 

@@ -20,14 +20,10 @@ public class Project {
     private String title;
     private String body;
     private Date dateCreated;
+    private Date timeRemaining;
     private boolean critical;
 
 
-
-    private Date timeRemaining;
-    private String editUrl;
-    private String deleteUrl;
-    private String doneUrl;
 
 
 
@@ -77,27 +73,5 @@ public class Project {
     public void setTimeRemaining(Date timeRemaining) {
         this.timeRemaining = timeRemaining;
     }
-    public String getEditUrl() {
-        return editUrl;
-    }
 
-    public void setEditUrl(String editUrl) {
-        this.editUrl = editUrl;
-    }
-
-    public String getDeleteUrl() {
-        return deleteUrl;
-    }
-
-    public void setDeleteUrl(String deleteUrl) {
-        this.deleteUrl = deleteUrl;
-    }
-
-    public String getDoneUrl() {
-        return doneUrl;
-    }
-
-    public void setDoneUrl(String doneUrl) {
-        this.doneUrl = doneUrl;
-    }
 }

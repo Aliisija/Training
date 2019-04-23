@@ -2,11 +2,8 @@ $(document).ready(function () {
 
     hideFormEdit();
     hideFormSubmit();
-
     loadData();
-
     loadFormListeners();
-    var caller = null;
 
 });
 
@@ -18,10 +15,7 @@ function hideFormEdit() {
     document.getElementById('formEdit').style.display = 'none';
 }
 
-function showFormEdit(id) {
-    var x = document.getElementById('projectIdEdit');
-    x.getAttributeNode("value").value = id;
-
+function showFormEdit() {
     document.getElementById('formEdit').style.display = 'block';
 }
 
@@ -31,29 +25,18 @@ function showFormSubmit() {
 
 function loadFormListeners() {
 
-    document.getElementById('addProject').addEventListener('click', projectSubmit);
+    document.getElementById('addProject').addEventListener('click', showFormSubmit);
 }
 
 
-function editProject() {
-    hideFormEdit();
-}
-
-function projectSubmit() {
-    showFormSubmit();
-}
-
-function projectDelete() {
-    var str = this.id;
-    var len = str.length;
-    var res = str.substring(6, len);
-    document.getElementById('row' + res).style.display = 'none';
+function projectDelete(object) {
+    document.getElementById('row' + object.id).style.display = 'none';
     $.ajax({
-        url: 'http://localhost:8080/project/delete/' + res,
+        url: 'http://localhost:8080/project/delete/' + object.id,
         method: "DELETE",
         success: [
             function () {
-                alert("Project " + res + "successfully deleted ");
+                alert("Project " + object.id + " successfully deleted ");
             }
         ]
     })
@@ -62,66 +45,78 @@ function projectDelete() {
         });
 
 }
+//TODO, show single project screen, for more in-depth analysis
+function loadSingleProject(ID) {
+    $.ajax({
+        url: 'http://localhost:8080/project/' + ID,
+        method: "GET",
+        contentType: "application/json",
+        success: [
+            function (data) {
+            alert("Project " + ID + " successfully loaded ");
+            }
+        ]
+    })
+        .fail(function () {
+            alert("error");
+        });
 
-//TODO, make it so that project ID gets autoloaded.
-function projectUpdate() {
-    var str = this.id;
-    var len = str.length;
-    var res = str.substring(4, len);
-    showFormEdit(res);
 
 }
-
-function projectHide() {
-    var str = this.id;
-    var len = str.length;
-    var res = str.substring(4, len);
-    document.getElementById('row' + res).style.display = 'none';
+//TODO. update, this is duplicate code. used it for sake of management, change both!!!!
+function formatDateForUpdate(date) {
+    var day= date.toString().substring(8, 10);
+    var month= date.toString().substring(5, 7);
+    var year= date.toString().substring(0, 4);
+    var formattedDate= year + "-" +month+ "-" +day;
+    return formattedDate;
 }
 
+//TODO, implement the autoload of checkbox
+//TODO, also, refactor the date formatting
+function showProjectUpdateWindow(object) {
+    if(object.critical==true){
+        document.getElementById('criticalEdit').checked =true;
+    }else{
+        document.getElementById('criticalEdit').checked =false;
+    }
+    document.getElementById('projectIdEdit').value =object.id;
+    document.getElementById('projectNameEdit').value =object.title;
+    document.getElementById('textEdit').value =object.body;
+    document.getElementById('startDateEdit').value =formatDateForUpdate(object.dateCreated);
+    document.getElementById('endDateEdit').value =formatDateForUpdate(object.timeRemaining);
+    showFormEdit();
+}
+
+
+function projectHide(object) {
+    document.getElementById('row' + object.id).style.display = 'none';
+}
+//Placeholder for better implementation, right now, it just load's all objects again
 function unhideAllRows() {
 loadData();
 
 }
-
-function getEditData(res) {
-    Boolean(checkForm("Edit"));
-    if (Boolean(checkForm("Edit"))){
-        var projectID = document.getElementById('projectIdEdit').value;
-        var projectName = document.getElementById('projectNameEdit').value;
-        var projectDesc = document.getElementById('textEdit').value;
-        var projectStart = document.getElementById('startDateEdit').value;
-        var projectEnd = document.getElementById('endDateEdit').value;
-        var projectCritical = $('#criticalEdit').prop('checked');
-        hideFormEdit();
-        prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical, projectID);
-
-    }else{
-        alert("Please fill in all values")
+function getFilledData(suffix) {
+    try{
+        var projectID = document.getElementById('projectId'+suffix).value;
+    }catch (e) {
+        projectID=null;
     }
-
-
+    var projectName = document.getElementById('projectName'+suffix).value;
+    var projectDesc = document.getElementById('text'+suffix).value;
+    var projectStart = document.getElementById('startDate'+suffix).value;
+    var projectEnd = document.getElementById('endDate'+suffix).value;
+    var projectCritical = $('#critical'+suffix).prop('checked');
+    prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical, projectID);
 }
 
-//TODO Update so that ID gets loaded dynamically.
-function getSubmitData() {
-
-    if (Boolean(checkForm("Subm"))){
-        var projectName = document.getElementById('projectNameSubm').value;
-        var projectDesc = document.getElementById('textSubm').value;
-        var projectStart = document.getElementById('startDateSubm').value;
-        var projectEnd = document.getElementById('endDateSubm').value;
-        var projectCritical = $('#criticalSubm').prop('checked');
-        hideFormSubmit();
-        prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical);
+function getFormData(suffix) {
+    if (Boolean(checkFormForEmptyValues(suffix))) {
+        getFilledData(suffix);
     }else{
-        alert("Please fill in all values")
+        alert("Please fill in ALL the values")
     }
-
-    // $('#formEditIdGetter').append(
-    //     'Project ID '+this.id+':<br><input id="projectNameEdit" type="text"><br>'
-    // );
-
 }
 
 function updateProject(object, ID) {
@@ -162,22 +157,26 @@ function submitProject(object) {
         });
 }
 
+//TODO, can be refactored
+//if value exists, project is being edited, if not, new project.
 function prepareJSON(projectName, projectDesc, projectStart, projectEnd, projectCritical, ID) {
     if (!ID) {
         var data = '{"title": "' + projectName + '","body":"' + projectDesc + '","dateCreated":"' + projectStart + '","critical":' + projectCritical + ',"timeRemaining":"' + projectEnd + '"}';
         var obj = JSON.stringify(eval("(" + data + ")"));
+        hideFormSubmit();
         submitProject(obj);
 
     } else {
         var data = '{"id": "' + ID + '","title": "' + projectName + '","body":"' + projectDesc + '","dateCreated":"' + projectStart + '","critical":' + projectCritical + ',"timeRemaining":"' + projectEnd + '"}';
         var obj = JSON.stringify(eval("(" + data + ")"));
+        hideFormEdit();
         updateProject(obj, ID)
     }
 
 
 }
 
-function checkForm(suffix) {
+function checkFormForEmptyValues(suffix) {
 var boolean=true;
     if (!document.getElementById("projectName"+suffix).value) {
         boolean=false;
@@ -218,40 +217,27 @@ function addRow(object) {
 
 function updateRow(object, ID) {
     $('#row' + ID).remove();
-    if (ID == 1) {
-        addRow(object);
-    } else {
-        ID--;
-        $('#tbody').append
-        ('<tr class="projectrow" id="row' + object.id + '">' +
-            '<td>' + object.id + '</td>' +
-            '<td>' + object.title + '</td>' +
-            '<td class="descriptionBody">' + object.body + '</td>' +
-            '<td>' + formatDate(object.dateCreated) + '</td>' +
-            '<td>' + formatDate(object.timeRemaining) + '</td>' +
-            '<td>' + criticalToString(object.critical) + '</td>' +
-            '<td id="edit' + object.id + '"><button>Edit</button></td>' +
-            '<td id="delete' + object.id + '"><button>Delete</button></td>' +
-            '<td id="hide' + object.id + '"><button>Hide</button></td>' +
-            '</tr>');
-        loadListener(object, ID);
-    }
+    addRow(object);
+}
+
+function setEditTableValues(object) {
 
 }
 
 
-function loadListener(object, ID) {
-    if (!object.id) {
-        document.getElementById('edit' + ID).addEventListener('click', projectUpdate);
-        document.getElementById('delete' + ID).addEventListener('click', projectDelete);
-        document.getElementById('hide' + ID).addEventListener('click', projectHide);
+function loadListener(object) {
+    document.getElementById('edit' + object.id).addEventListener('click', function () {
+        showProjectUpdateWindow(object);
+    });
+    document.getElementById('delete' + object.id).addEventListener('click', function () {
+        projectDelete(object);
+    });
 
-    } else {
+    document.getElementById('hide' + object.id).addEventListener('click', function () {
+        projectHide(object);
+    });
+    setEditTableValues(object);
 
-        document.getElementById('edit' + object.id).addEventListener('click', projectUpdate);
-        document.getElementById('delete' + object.id).addEventListener('click', projectDelete);
-        document.getElementById('hide' + object.id).addEventListener('click', projectHide);
-    }
 }
 function monthNumberToString(month) {
     switch(month) {
