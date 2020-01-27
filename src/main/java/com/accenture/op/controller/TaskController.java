@@ -1,8 +1,8 @@
 package com.accenture.op.controller;
 
-import com.accenture.op.domain.Task;
 import com.accenture.op.domain.TaskDto;
 import com.accenture.op.service.TaskService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,24 +24,24 @@ public class TaskController {
     }
 
     @GetMapping(value = "/rest/tasks")
-    public List<TaskDto> getAll() {
+    public List<TaskDto> getAll() throws IOException, ClassNotFoundException {
         return taskService.getAllTasks();
     }
 
     @PostMapping(value = "/rest/savetask", consumes="application/json")
-    public void saveNewTask(@RequestBody TaskDto dto) {
+    public void saveNewTask(@RequestBody TaskDto dto) throws IOException {
         taskService.saveNewTask(dto);
     }
 
-    @PutMapping(value = "/rest/updatetask/{id}", consumes="application/json")
-    public void updateTask(@RequestBody TaskDto dto, @PathVariable Long id){
-        System.out.println(id);
-        taskService.updateTask(dto,id);
-    }
-
-    @DeleteMapping(value = "/rest/deletetask/{id}", consumes="application/json")
-    public void deleteTaskById(@PathVariable Long id){
-        taskService.deleteTaskById(id);
-    }
+//    @PutMapping(value = "/rest/updatetask/{id}", consumes="application/json")
+//    public void updateTask(@RequestBody TaskDto dto, @PathVariable Long id){
+//        System.out.println(id);
+//        taskService.updateTask(dto,id);
+//    }
+//
+//    @DeleteMapping(value = "/rest/deletetask/{id}", consumes="application/json")
+//    public void deleteTaskById(@PathVariable Long id){
+//        taskService.deleteTaskById(id);
+//    }
 
 }
