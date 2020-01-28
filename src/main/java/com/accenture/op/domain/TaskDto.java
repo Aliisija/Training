@@ -1,14 +1,25 @@
 package com.accenture.op.domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity(name = "TASKDTO")
 public class TaskDto {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
+    @Column(name = "TASKNAME")
     private String taskName;
+    @Column(name = "STARTDATE")
     private Date startDate;
+    @Column(name = "ENDDATE")
+    @Temporal(value=TemporalType.TIMESTAMP)
     private Date endDate;
+    @Column(name = "PRIORITY")
     private String priority;
+    @Column(name = "NOTES")
     private String notes;
 
     public TaskDto() {}

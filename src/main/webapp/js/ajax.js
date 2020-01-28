@@ -7,91 +7,93 @@ function assignEvents() {
     });
 }
 
-function openModal(isUpdate = false, taskId = null) {
-    $('#modal').show();
+function openModal(isUpdate,task) {
+    console.log('openModal');
+    $("input[name='taskname']").val("");
+    $("input[name='startdate']").val("");
+    $("input[name='enddate']").val("");
+    $("input[name='priority']").val("");
+    $("input[name='notes']").val("");
     if (isUpdate) {
-        $('#submitButton').html('Update task');
-        $('#submitButton').prop("onclick", null);
+        console.log(task);
+        $("input[name='taskname']").val(task.taskName);
+        var date1 = new Date(task.startDate);
+        $("input[name='startdate']").val(date1.toISOString().substring(0,10));
+        var date2 = new Date(task.endDate);
+        $("input[name='enddate']").val(date2.toISOString().substring(0,10));
+        $("input[name='priority']").val(task.priority);
+        $("input[name='notes']").val(task.notes);
+        $('#submitButton').text('UPDATE TASK');
+        $('#submitButton').prop("onclick", null).off("click");
         $('#submitButton').click(function () {
-            updateTask(taskId);
+            updateTask(task);
         });
     } else {
-        $('#submitButton').html('Create task');
-        $('#submitButton').prop("onclick", null);
+        $('#submitButton').text('CREATE TASK');
+        $('#submitButton').prop("onclick", null).off("click");
         $('#submitButton').click(function () {
             createTask();
         });
     }
+    $('#modal').show();
 }
 
 function getList() {
     $.ajax({
-        url: "http://localhost:8080/rest/tasks",
+        url: "http://localhost:8085/rest/tasks",
         method: "GET",
-        success: [
+        success:
             function (data) {
                 populateDataTable(data);
             }
-        ]
     })
-        .done(function (list) {
-            console.log(list);
-        })
         .fail(function () {
             alert("error");
         });
 }
 
-function initOnUpdate(taskId, updateButton) {
+function initOnUpdate(task, updateButton) {
+    console.log('initOnUpdate');
+    $(updateButton).prop("onclick", null).off("click");
     updateButton.onclick = function () {
-        openModal(true, taskId);
+        console.log('update clicked');
+        openModal(true, task);
     };
 };
 
-function populateDataTable(data) {
+function populateDataTable(data){
     for (i in data) {
+        // data.forEach(function(data) {
         var tr = document.createElement('tr');
         var element = data[i];
         console.log(element);
 
-        var tdId = document.createElement('tdId');
-        //tdId.appendChild(document.createTextNode(element.id));
-        tr.appendChild(tdId);
         var taskId = element.id;
 
-        var tdName = document.createElement('td');
-        tdName.appendChild(document.createTextNode(element.taskName));
-        tr.appendChild(tdName);
-
-        var tdStartDate = document.createElement('td');
-        tdStartDate.appendChild(document.createTextNode(element.startDate));
-        tr.appendChild(tdStartDate);
-
-        var tdEndDate = document.createElement('td');
-        tdEndDate.appendChild(document.createTextNode(element.endDate));
-        tr.appendChild(tdEndDate);
-
-        var tdPriority = document.createElement('td');
-        tdPriority.appendChild(document.createTextNode(element.priority));
-        tr.appendChild(tdPriority);
-
-        var tdNotes = document.createElement('td');
-        tdNotes.appendChild(document.createTextNode(element.notes));
-        tr.appendChild(tdNotes);
+        tr.appendChild(createTD(element.id));
+        tr.appendChild(createTD(element.taskName));
+        var date1 = new Date(element.startDate);
+        tr.appendChild(createTD(date1.toISOString().slice(0, 10)));
+        var date2 = new Date(element.endDate);
+        tr.appendChild(createTD(date2.toISOString().slice(0, 10)));
+        tr.appendChild(createTD(element.priority));
+        tr.appendChild(createTD(element.notes));
 
         var tdUpdate = document.createElement('td');
         var updateButton = document.createElement('Button');
-        updateButton.appendChild(document.createTextNode('UPDATE'));
+        updateButton.innerText = "UPDATE";
+        updateButton.className = "button";
         tdUpdate.appendChild(updateButton);
 
-        initOnUpdate(taskId, updateButton);
+        initOnUpdate(element, updateButton);
 
         tr.appendChild(tdUpdate);
 
         var tdDelete = document.createElement('td');
         var deleteButton = document.createElement('Button');
-        deleteButton.appendChild(document.createTextNode('DELETE'));
+        deleteButton.innerText = "DELETE";
         deleteButton.setAttribute("onclick", "deleteTask(" + taskId + ");");
+        deleteButton.className = "button";
         tdDelete.appendChild(deleteButton);
         tr.appendChild(tdDelete);
 
@@ -99,11 +101,17 @@ function populateDataTable(data) {
     }
 }
 
-function updateTask(id) {
-    console.log('updating' + id)
+function createTD(innerText){
+    var el = document.createElement('td');
+    el.appendChild(document.createTextNode(innerText));
+    return el;
+}
+
+function updateTask(task) {
+    console.log('updating' + task.id)
     if (validateData()) {
         $.ajax({
-            url: "http://localhost:8080/rest/updatetask/" + id,
+            url: "http://localhost:8085/rest/tasks/" + task.id,
             method: "PUT",
             contentType: "application/json",
             data: JSON.stringify({
@@ -128,18 +136,13 @@ function updateTask(id) {
                 });
             }
         })
-            .done(function (response) {
-                console.log(response);
-            })
-    } else {
-        return false;
     }
 }
 
 function deleteTask(id) {
     console.log(id);
     $.ajax({
-        url: "http://localhost:8080/rest/deletetask/" + id,
+        url: "http://localhost:8085/rest/tasks/" + id,
         method: "DELETE",
         contentType: "application/json",
         success: function () {
@@ -157,15 +160,12 @@ function deleteTask(id) {
             });
         }
     })
-        .done(function (response) {
-            console.log(response);
-        })
 }
 
 function createTask() {
     if (validateData()) {
         $.ajax({
-            url: "http://localhost:8080/rest/savetask",
+            url: "http://localhost:8085/rest/tasks",
             method: "POST",
             contentType: "application/json",
             data: JSON.stringify({
@@ -190,11 +190,6 @@ function createTask() {
                 });
             }
         })
-            .done(function (response) {
-                console.log(response);
-            })
-    } else {
-        return false;
     }
 }
 

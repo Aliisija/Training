@@ -1,5 +1,29 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    padding:50px;
+}
+
+.header *{
+    margin-top:0px;
+    display: inline-block;
+}
+
+/*.header .actionButton{*/
+/*    float: right;*/
+/*}*/
+
+.formelement{
+    width:260px;
+    display: block;
+    margin-bottom: 26px;
+}
+
+.formelement input{
+    float:right;
+    width: 160px;
+}
+
 #tasks {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
@@ -9,10 +33,72 @@
     padding: 8px;
 }
 
-#tasks th {
+/* #tasks th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color: #653239;
     color: white;
+} */
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th, th {
+    background-color: lightgray;
+}
+
+#modal{
+    left: 40%;
+    display: none;
+    position: fixed;
+    top: 20%;
+    background: white;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+input{
+    padding: 10px 15px;
+}
+
+button.button {
+    background-color: lightgray;
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+}
+
+button.button.actionButton{
+    float: right;
+    margin-bottom: 10px;
+}
+
+#openCreateButton{
+    margin:0px auto;
+    left: 40%;
+    float: right;
+}
+
+#closeModalButton{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+#submitButton{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
 }

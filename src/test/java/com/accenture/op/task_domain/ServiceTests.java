@@ -45,49 +45,49 @@ public class ServiceTests {
         taskService = new TaskService(taskRepository, taskMapper);
     }
 
-//    @Test
-//    public void testGetAllTasks() {
-//        List<Task> tasks = new ArrayList<>();
-//        when(taskRepository.findAll()).thenReturn(tasks);
-//
-//        TaskDto taskDto = new TaskDto("Task1");
-//        List<TaskDto> dtos = new ArrayList<>();
-//        dtos.add(taskDto);
-//
-//        when(taskMapper.entityToDtoList(any())).thenReturn(dtos);
-//
-//        assertThat(taskService.getAllTasks().size() == 1);
-//
-//        verify(taskRepository, Mockito.times(1)).findAll();
-//        verify(taskMapper, Mockito.times(1)).entityToDtoList(tasks);
-//    }
-//
-//    @Test
-//    public void testSaveNewTask() {
-//        when(taskMapper.dtoToEntity(any())).thenReturn(new Task());
-//        when(taskRepository.save(any())).thenReturn(new Task());
-//        taskService.saveNewTask(taskDto);
-//        verify(taskMapper, Mockito.times(1)).dtoToEntity(any());
-//        verify(taskRepository, Mockito.times(1)).save(any());
-//    }
-//
-//    @Test
-//    public void testUpdateTask() {
-//        when(taskRepository.findById(1L)).thenReturn(java.util.Optional.ofNullable(task));
-//        doNothing().when(taskMapper).updateTask(any(TaskDto.class), any(Task.class));
-//        when(taskRepository.save(any())).thenReturn(new Task());
-//        taskService.updateTask(new TaskDto(), 1L);
-//        verify(taskRepository, Mockito.times(1)).findById(1L);
-//        verify(taskMapper, Mockito.times(1)).updateTask(any(), any());
-//        verify(taskRepository, Mockito.times(1)).save(any());
-//    }
-//
-//    @Test
-//    public void testDeleteTaskById() {
-//        doNothing().when(taskRepository).deleteById(Mockito.anyLong());
-//        taskService.deleteTaskById(Mockito.anyLong());
-//        verify(taskRepository, Mockito.times(1)).deleteById(Mockito.anyLong());
-//    }
+    @Test
+    public void testGetAllTasks() {
+        List<Task> tasks = new ArrayList<>();
+        when(taskRepository.findAll()).thenReturn(tasks);
+
+        TaskDto taskDto = new TaskDto("Task1");
+        List<TaskDto> dtos = new ArrayList<>();
+        dtos.add(taskDto);
+
+        when(taskMapper.entityToDtoList(any())).thenReturn(dtos);
+
+        assertThat(taskService.getAllTasks().size() == 1);
+
+        verify(taskRepository, Mockito.times(1)).findAll();
+        verify(taskMapper, Mockito.times(1)).entityToDtoList(tasks);
+    }
+
+    @Test
+    public void testSaveNewTask() {
+        when(taskMapper.dtoToEntity(any())).thenReturn(new Task());
+        when(taskRepository.save(any())).thenReturn(new Task());
+        taskService.saveNewTask(taskDto);
+        verify(taskMapper, Mockito.times(1)).dtoToEntity(any());
+        verify(taskRepository, Mockito.times(1)).save(any());
+    }
+
+    @Test
+    public void testUpdateTask() {
+        when(taskRepository.findById(1L)).thenReturn(java.util.Optional.ofNullable(task));
+        doNothing().when(taskMapper).updateTask(any(TaskDto.class), any(Task.class));
+        when(taskRepository.save(any())).thenReturn(new Task());
+        taskService.updateTask(new TaskDto(), 1L);
+        verify(taskRepository, Mockito.times(1)).findById(1L);
+        verify(taskMapper, Mockito.times(1)).updateTask(any(), any());
+        verify(taskRepository, Mockito.times(1)).save(any());
+    }
+
+    @Test
+    public void testDeleteTaskById() {
+        doNothing().when(taskRepository).deleteById(Mockito.anyLong());
+        taskService.deleteTaskById(Mockito.anyLong());
+        verify(taskRepository, Mockito.times(1)).deleteById(Mockito.anyLong());
+    }
 
 
 }
