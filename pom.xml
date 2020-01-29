@@ -11,7 +11,7 @@
     <groupId>com.accenture.op</groupId>
     <artifactId>task_domain</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>task_domain</name>
     <description>Demo project for Spring Boot</description>
 
@@ -58,20 +58,17 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <configuration>
-                            <attachClasses>true</attachClasses>
-                            <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
-                        </configuration>
-                        <goals>
-                            <goal>inplace</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <configuration>
+                    <attachClasses>true</attachClasses>
+                    <webXml>target/web.xml</webXml>
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp</directory>
+                            <filtering>true</filtering>
+                        </resource>
+                    </webResources>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
