@@ -1,23 +1,23 @@
 package com.accenture.op.service;
+
+import com.accenture.op.domain.Task;
 import com.accenture.op.domain.TaskDto;
 import com.accenture.op.mapper.TaskMapper;
 import com.accenture.op.repository.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import com.accenture.op.domain.Task;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class TaskService {
     private static final Logger log = LoggerFactory.getLogger(TaskService.class);
 
-    final private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
-    final private TaskMapper taskMapper;
+    private final TaskMapper taskMapper;
 
     public TaskService(TaskRepository taskRepository, TaskMapper taskMapper) {
         this.taskRepository = taskRepository;

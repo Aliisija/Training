@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8"%>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Task creator</title>
     <link rel="stylesheet" type="text/css" href="/css/css.css">

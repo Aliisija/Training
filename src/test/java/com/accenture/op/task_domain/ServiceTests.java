@@ -1,14 +1,5 @@
 package com.accenture.op.task_domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
 import com.accenture.op.domain.Task;
 import com.accenture.op.domain.TaskDto;
 import com.accenture.op.mapper.TaskMapper;
@@ -19,10 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -50,9 +46,9 @@ public class ServiceTests {
         List<Task> tasks = new ArrayList<>();
         when(taskRepository.findAll()).thenReturn(tasks);
 
-        TaskDto taskDto = new TaskDto("Task1");
+        TaskDto dto = new TaskDto("Task1");
         List<TaskDto> dtos = new ArrayList<>();
-        dtos.add(taskDto);
+        dtos.add(dto);
 
         when(taskMapper.entityToDtoList(any())).thenReturn(dtos);
 

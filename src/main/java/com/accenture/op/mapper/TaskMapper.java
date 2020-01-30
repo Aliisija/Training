@@ -27,13 +27,11 @@ public class TaskMapper {
     }
 
     public Task dtoToEntity(final TaskDto taskDto) {
-        Task task = new Task(taskDto.getTaskName(), taskDto.getStartDate(), taskDto.getEndDate(), taskDto.getPriority(), taskDto.getNotes());
-        return task;
+        return new Task(taskDto.getTaskName(), taskDto.getStartDate(), taskDto.getEndDate(), taskDto.getPriority(), taskDto.getNotes());
     }
 
     public static TaskDto entityToDto(final Task task) {
-        TaskDto taskDto = new TaskDto(task.getId(), task.getTaskName(), task.getStartDate(), task.getEndDate(), task.getPriority(), task.getNotes());
-        return taskDto;
+        return new TaskDto(task.getId(), task.getTaskName(), task.getStartDate(), task.getEndDate(), task.getPriority(), task.getNotes());
     }
 
     public void updateTask(TaskDto taskDto, Task taskToUpdate){

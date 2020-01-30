@@ -27,6 +27,7 @@ public class TaskControllerIT {
     private WebApplicationContext context;
 
     private MockMvc mvc;
+    private String URL_TEMPLATE = "/rest/tasks";
 
     @Before
     public void setup() {
@@ -37,15 +38,15 @@ public class TaskControllerIT {
 
     @Test
     public void shouldReturnAllTasks() throws Exception {
-        mvc.perform(get("/rest/tasks"))
+        mvc.perform(get(URL_TEMPLATE))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void shouldSaveTask() throws Exception {
-        TaskDto dto = createDto("Some task", "High", "Notes");
+        TaskDto dto = createDto("Some task1", "High", "Notes1");
 
-        mvc.perform(post("/rest/tasks")
+        mvc.perform(post(URL_TEMPLATE)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto)))
                 .andExpect(status().isOk());
@@ -53,16 +54,16 @@ public class TaskControllerIT {
 
     @Test
     public void shouldUpdateTask() throws Exception {
-        TaskDto dto1 = createDto("Some task", "High", "Notes");
+        TaskDto dto1 = createDto("Some task2", "Low", "Notes2");
 
-        mvc.perform(post("/rest/tasks")
+        mvc.perform(post(URL_TEMPLATE)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto1)))
                 .andExpect(status().isOk());
 
         TaskDto dto2 = createDto("Edited task", "Low", "Notes");
 
-        mvc.perform(put("/rest/tasks/" + 1)
+        mvc.perform(put(URL_TEMPLATE + 1)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto2)))
                 .andExpect(status().isOk());
@@ -70,14 +71,14 @@ public class TaskControllerIT {
 
     @Test
     public void deleteTaskById() throws Exception {
-        TaskDto dto1 = createDto("Some task", "High", "Notes");
+        TaskDto dto1 = createDto("Some task3", "Medium", "Notes3");
 
-        mvc.perform(post("/rest/tasks")
+        mvc.perform(post(URL_TEMPLATE)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto1)))
                 .andExpect(status().isOk());
 
-        mvc.perform(delete("/rest/tasks/" + 1)
+        mvc.perform(delete(URL_TEMPLATE + 1)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto1)))
                 .andExpect(status().isOk());

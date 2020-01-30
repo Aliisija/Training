@@ -2,6 +2,8 @@ package com.accenture.op.controller;
 
 import com.accenture.op.domain.TaskDto;
 import com.accenture.op.service.TaskService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @RestController
 public class TaskController {
+    private static final Logger log = LoggerFactory.getLogger(TaskController.class);
 
     private final TaskService taskService;
 
@@ -34,7 +37,7 @@ public class TaskController {
 
     @PutMapping(value = "/rest/tasks/{id}", consumes="application/json")
     public void updateTask(@RequestBody TaskDto dto, @PathVariable Long id){
-        System.out.println(id);
+        log.info(String.valueOf(id));
         taskService.updateTask(dto,id);
     }
 
