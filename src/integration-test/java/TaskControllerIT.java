@@ -44,7 +44,7 @@ public class TaskControllerIT {
 
     @Test
     public void shouldSaveTask() throws Exception {
-        TaskDto dto = createDto("Some task1", "High", "Notes1");
+        TaskDto dto = createDto("Some task", "High", "Notes1");
 
         mvc.perform(post(URL_TEMPLATE)
                 .contentType(APPLICATION_JSON_UTF8)
@@ -54,7 +54,7 @@ public class TaskControllerIT {
 
     @Test
     public void shouldUpdateTask() throws Exception {
-        TaskDto dto1 = createDto("Some task2", "Low", "Notes2");
+        TaskDto dto1 = createDto("Some task1", "High", "Notes2");
 
         mvc.perform(post(URL_TEMPLATE)
                 .contentType(APPLICATION_JSON_UTF8)
@@ -63,7 +63,7 @@ public class TaskControllerIT {
 
         TaskDto dto2 = createDto("Edited task", "Low", "Notes");
 
-        mvc.perform(put(URL_TEMPLATE + 1)
+        mvc.perform(put(URL_TEMPLATE + "/" + 1)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto2)))
                 .andExpect(status().isOk());
@@ -71,14 +71,14 @@ public class TaskControllerIT {
 
     @Test
     public void deleteTaskById() throws Exception {
-        TaskDto dto1 = createDto("Some task3", "Medium", "Notes3");
+        TaskDto dto1 = createDto("Some task2", "Medium", "Notes3");
 
-        mvc.perform(post(URL_TEMPLATE)
+        mvc.perform(post("/rest/tasks")
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto1)))
                 .andExpect(status().isOk());
 
-        mvc.perform(delete(URL_TEMPLATE + 1)
+        mvc.perform(delete(URL_TEMPLATE + "/" + 1)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(dto1)))
                 .andExpect(status().isOk());
